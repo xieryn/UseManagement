@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, deleteUser, addUser } from '../features/users/userSlice'; // <-- addUser imported
+import { fetchUsers, deleteUser, addUser } from '../features/users/userSlice'; 
 
 const UserList = () => {
     const dispatch = useDispatch();
     const { users, loading, error } = useSelector(state => state.users);
     const [search, setSearch] = useState('');
-    const [newName, setNewName] = useState(''); // <-- new
-    const [newEmail, setNewEmail] = useState(''); // <-- new
+    const [newName, setNewName] = useState(''); 
+    const [newEmail, setNewEmail] = useState('');
 
     useEffect(() => {
         dispatch(fetchUsers());
     }, [dispatch]);
 
-    const handleAddUser = () => { // <-- new
+    const handleAddUser = () => { 
         if (newName.trim() && newEmail.trim()) {
             dispatch(addUser({ name: newName, email: newEmail }));
             setNewName('');
@@ -40,7 +40,7 @@ const UserList = () => {
                 />
             </div>
 
-            <div className="add-user-form"> {/* <-- new */}
+            <div className="add-user-form"> {}
                 <input
                     type="text"
                     placeholder="Name"
