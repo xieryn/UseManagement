@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Helper functions
+
 const loadUsersFromLocalStorage = () => {
     try {
         const users = localStorage.getItem('users');
@@ -23,7 +23,7 @@ const saveUsersToLocalStorage = (users) => {
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     const response = await axios.get('https://jsonplaceholder.typicode.com/users');
     await new Promise(resolve => setTimeout(resolve, 2000));
-    const filipinoNames = [
+    const Names = [
         { name: 'Mayi Clutz', email: 'mayiclutz@gmail.com' },
         { name: 'Anna Girl', email: 'Annagirl@Yahoo.com' },
         { name: 'Anne Avilable', email: 'anneavilablesha@outlook.com' },
@@ -36,13 +36,13 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
         { name: 'It Girls', email: 'powergirlshaha@gmail.com' },
     ];
 
-    const filipinoUsers = response.data.map((user, index) => ({
+    const Users = response.data.map((user, index) => ({
         ...user,
-        name: filipinoNames[index % filipinoNames.length].name,
-        email: filipinoNames[index % filipinoNames.length].email,
+        name: Names[index % Names.length].name,
+        email: Names[index % Names.length].email,
     }));
 
-    return filipinoUsers;
+    return Users;
 });
 
 const userSlice = createSlice({
@@ -59,7 +59,7 @@ const userSlice = createSlice({
         },
         addUser: (state, action) => {
             const newUser = {
-                id: Date.now(), // generate a unique id
+                id: Date.now(),
                 name: action.payload.name,
                 email: action.payload.email,
             };
@@ -76,7 +76,7 @@ const userSlice = createSlice({
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.loading = false;
                 state.users = action.payload;
-                saveUsersToLocalStorage(state.users); // Save fetched users too
+                saveUsersToLocalStorage(state.users); 
             })
             .addCase(fetchUsers.rejected, (state, action) => {
                 state.loading = false;
